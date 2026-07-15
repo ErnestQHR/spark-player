@@ -20,6 +20,7 @@ jobs:
         host: 'windows'
         target: 'desktop'
         arch: 'win64_msvc2019_64'
+        modules: 'qtmultimedia'
 
     - name: Set up MSVC environment
       uses: ilammy/msvc-dev-cmd@v1
@@ -46,78 +47,3 @@ jobs:
       with:
         name: spark_player_windows
         path: build/release/spark_player_windows.zip
-
-  build-macos:
-    runs-on: macos-latest
-    steps:
-    - uses: actions/checkout@v4
-
-    - name: Install Qt
-      uses: jurplel/install-qt-action@v4
-      with:
-        version: '6.5.3'
-        host: 'macos'
-        target: 'desktop'
-        arch: 'macos'
-
-    - name: Build with qmake
-      run: |
-        mkdir -p build
-        cd build
-        qmake ../spark_player.pro
-        make -j4
-
-    - name: Deploy Qt dependencies
-      run: |
-        cd build
-        macdeployqt spark_player.app -dmg
-
-    - name: Upload artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: spark_player_macos
-        path: build/spark_player.dmg
-
-  build-linux:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
-
-    - name: Install Qt
-      uses: jurplel/install-qt-action@v4
-      with:
-        version: '6.5.3'
-        host: 'linux'
-        target: 'desktop'
-        arch: 'gcc_64'
-
-    - name: Install dependencies
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y libgl1-mesa-dev libxkbcommon-x11-0 libpulse-dev
-
-    - name: Build with qmake
-      run: |
-        mkdir -p build
-        cd build
-        qmake ../spark_player.pro
-        make -j4
-
-    - name: Deploy Qt dependencies
-      run: |
-        cd build
-        mkdir -p AppDir/usr/bin
-        cp spark_player AppDir/usr/bin/
-
-    - name: Create AppImage
-      uses: AppImageCrafters/build-appimage@v1
-      with:
-        appdir: build/AppDir
-        binary: spark_player
-        update-information: 'gh-releases-zsync|ErnestQHR|spark-player|latest|spark_player-x86_64.AppImage.zsync'
-
-    - name: Upload artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: spark_player_linux
-        path: build/*.AppImage
