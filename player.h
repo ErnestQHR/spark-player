@@ -9,7 +9,6 @@
 #include <QKeyEvent>
 #include <QShortcut>
 #include <QAction>
-#include <QDataStream>
 
 enum class PlayMode {
     Sequential,
@@ -17,26 +16,6 @@ enum class PlayMode {
     SingleLoop,
     Random
 };
-
-struct PlayHistory {
-    QString filePath;
-    QString fileName;
-    QDateTime playTime;
-    qint64 duration;
-    qint64 lastPosition;
-};
-
-inline QDataStream &operator<<(QDataStream &out, const PlayHistory &history) {
-    out << history.filePath << history.fileName << history.playTime
-        << history.duration << history.lastPosition;
-    return out;
-}
-
-inline QDataStream &operator>>(QDataStream &in, PlayHistory &history) {
-    in >> history.filePath >> history.fileName >> history.playTime
-       >> history.duration >> history.lastPosition;
-    return in;
-}
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Player; }
@@ -101,7 +80,6 @@ private:
     bool isFullScreen;
     bool isPlaylistVisible;
     QMap<QString, qint64> lastPositions;
-    QList<PlayHistory> playHistory;
     QShortcut *playShortcut;
     QShortcut *screenshotShortcut;
     QShortcut *fullscreenShortcut;
@@ -111,7 +89,6 @@ private:
     QAction *screenshotAction;
 
     void addToPlaylist(const QStringList &files);
-    void addToHistory(const QString &filePath, qint64 duration, qint64 lastPosition);
     QString formatTime(qint64 milliseconds);
     QString getAppDataPath();
     QString getPlayModeText(PlayMode mode);
