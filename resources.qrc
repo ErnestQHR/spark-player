@@ -1,0 +1,9 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource>
+    <file>player.svg</file>
+    <file>sequential.svg</file>
+    <file>loop.svg</file>
+    <file>single-loop.svg</file>
+    <file>random.svg</file>
+</qresource>
+</RCC>
