@@ -8,6 +8,7 @@
 #include <QListWidget>
 #include <QKeyEvent>
 #include <QShortcut>
+#include <QAction>
 
 enum class PlayMode {
     Sequential,
@@ -46,13 +47,9 @@ private slots:
     void on_progressSlider_valueChanged(int value);
     void on_volumeSlider_valueChanged(int value);
     void on_playModeButton_clicked();
-    void on_openAction_triggered();
     void on_playlistWidget_doubleClicked(const QModelIndex &index);
     void on_playlistWidget_customContextMenuRequested(const QPoint &pos);
     void on_volumeButton_clicked();
-    void on_fullscreenAction_triggered();
-    void on_screenshotAction_triggered();
-    void on_exitAction_triggered();
 
     void updatePosition(qint64 position);
     void updateDuration(qint64 duration);
@@ -95,6 +92,10 @@ private:
     QShortcut *playShortcut;
     QShortcut *screenshotShortcut;
     QShortcut *fullscreenShortcut;
+    QAction *openAction;
+    QAction *exitAction;
+    QAction *fullscreenAction;
+    QAction *screenshotAction;
 
     void addToPlaylist(const QStringList &files);
     void addToHistory(const QString &filePath, qint64 duration, qint64 lastPosition);
