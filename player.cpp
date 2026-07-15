@@ -3,6 +3,7 @@
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QMenu>
+#include <QMenuBar>
 #include <QDesktopServices>
 #include <QUrl>
 #include <QSettings>
@@ -59,6 +60,17 @@ Player::Player(QWidget *parent)
 
     loadSettings();
     loadPlaylist();
+
+    QMenu *fileMenu = menuBar()->addMenu("文件");
+    openAction = fileMenu->addAction("打开文件", this, &Player::openFile, QKeySequence("Ctrl+O"));
+    fileMenu->addSeparator();
+    exitAction = fileMenu->addAction("退出", this, &Player::close);
+
+    QMenu *playMenu = menuBar()->addMenu("播放");
+    fullscreenAction = playMenu->addAction("全屏", this, &Player::toggleFullScreen);
+    screenshotAction = playMenu->addAction("截图", this, &Player::captureScreenshot);
+
+    menuBar()->addMenu("帮助");
 }
 
 Player::~Player()
@@ -135,10 +147,7 @@ void Player::on_playModeButton_clicked()
     ui->playModeButton->setText(getPlayModeText(playMode));
 }
 
-void Player::on_openAction_triggered()
-{
-    openFile();
-}
+
 
 void Player::on_playlistWidget_doubleClicked(const QModelIndex &index)
 {
@@ -182,20 +191,7 @@ void Player::on_volumeButton_clicked()
     toggleMute();
 }
 
-void Player::on_fullscreenAction_triggered()
-{
-    toggleFullScreen();
-}
 
-void Player::on_screenshotAction_triggered()
-{
-    captureScreenshot();
-}
-
-void Player::on_exitAction_triggered()
-{
-    close();
-}
 
 void Player::updatePosition(qint64 position)
 {
@@ -413,12 +409,12 @@ void Player::toggleFullScreen()
     isFullScreen = !isFullScreen;
     if (isFullScreen) {
         showFullScreen();
-        ui->menuBar->hide();
+        menuBar()->hide();
         ui->controlBar->hide();
         ui->playlistDock->hide();
     } else {
         showNormal();
-        ui->menuBar->show();
+        menuBar()->show();
         ui->controlBar->show();
         if (isPlaylistVisible) {
             ui->playlistDock->show();
