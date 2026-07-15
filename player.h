@@ -25,6 +25,18 @@ struct PlayHistory {
     qint64 lastPosition;
 };
 
+inline QDataStream &operator<<(QDataStream &out, const PlayHistory &history) {
+    out << history.filePath << history.fileName << history.playTime
+        << history.duration << history.lastPosition;
+    return out;
+}
+
+inline QDataStream &operator>>(QDataStream &in, PlayHistory &history) {
+    in >> history.filePath >> history.fileName >> history.playTime
+       >> history.duration >> history.lastPosition;
+    return in;
+}
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class Player; }
 QT_END_NAMESPACE
