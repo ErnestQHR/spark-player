@@ -9,6 +9,7 @@
 #include <QKeyEvent>
 #include <QShortcut>
 #include <QAction>
+#include <QDataStream>
 
 enum class PlayMode {
     Sequential,
