@@ -136,15 +136,7 @@
     </layout>
    </widget>
   </widget>
-  <menuBar class="QMenuBar" name="menuBar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>800</width>
-     <height>22</height>
-    </rect>
-   </property>
+  <menuBar>
    <widget class="QMenu" name="menuFile">
     <property name="title">
      <string>文件</string>
