@@ -456,13 +456,6 @@ void Player::saveSettings()
         file.close();
     }
 
-    QString historyPath = getAppDataPath() + "/history.dat";
-    QFile historyFile(historyPath);
-    if (historyFile.open(QIODevice::WriteOnly)) {
-        QDataStream out(&historyFile);
-        out << playHistory;
-        historyFile.close();
-    }
 }
 
 void Player::loadSettings()
@@ -473,14 +466,6 @@ void Player::loadSettings()
     ui->volumeSlider->setValue(static_cast<int>(audioOutput->volume() * 100));
     playMode = static_cast<PlayMode>(settings.value("playMode", 0).toInt());
     ui->playModeButton->setText(getPlayModeText(playMode));
-
-    QString historyPath = getAppDataPath() + "/history.dat";
-    QFile historyFile(historyPath);
-    if (historyFile.open(QIODevice::ReadOnly)) {
-        QDataStream in(&historyFile);
-        in >> playHistory;
-        historyFile.close();
-    }
 }
 
 void Player::keyPressEvent(QKeyEvent *event)
@@ -530,21 +515,6 @@ void Player::addToPlaylist(const QStringList &files)
         QListWidgetItem *item = new QListWidgetItem(fileInfo.fileName());
         item->setData(Qt::UserRole, filePath);
         playlistWidget->addItem(item);
-    }
-}
-
-void Player::addToHistory(const QString &filePath, qint64 duration, qint64 lastPosition)
-{
-    PlayHistory history;
-    history.filePath = filePath;
-    history.fileName = QFileInfo(filePath).fileName();
-    history.playTime = QDateTime::currentDateTime();
-    history.duration = duration;
-    history.lastPosition = lastPosition;
-
-    playHistory.prepend(history);
-    if (playHistory.size() > 50) {
-        playHistory.removeLast();
     }
 }
 
