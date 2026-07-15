@@ -2,6 +2,7 @@
 #define CLICKABLESLIDER_H
 
 #include <QSlider>
+#include <QMouseEvent>
 
 class ClickableSlider : public QSlider
 {
