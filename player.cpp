@@ -570,7 +570,7 @@ QString Player::getAppDataPath()
 #elif defined(Q_OS_LINUX)
     return QDir::homePath() + "/.local/share/spark_player";
 #elif defined(Q_OS_WIN)
-    return qgetenv("APPDATA").toString() + "/spark_player";
+    return QString::fromUtf8(qgetenv("APPDATA")) + "/spark_player";
 #else
     return QDir::homePath() + "/.spark_player";
 #endif
