@@ -2,6 +2,8 @@
 #include "ui_player.h"
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QInputDialog>
+#include <QLineEdit>
 #include <QMenu>
 #include <QMenuBar>
 #include <QDesktopServices>
