@@ -28,14 +28,17 @@ Player::Player(QWidget *parent)
 
     mediaPlayer = new QMediaPlayer(this);
     audioOutput = new QAudioOutput(this);
-    videoWidget = ui->videoWidget;
+    videoWidget = new QVideoWidget(this);
 
     mediaPlayer->setAudioOutput(audioOutput);
     mediaPlayer->setVideoOutput(videoWidget);
 
+    QHBoxLayout *containerLayout = new QHBoxLayout(ui->videoContainer);
+    containerLayout->setContentsMargins(0, 0, 0, 0);
+    containerLayout->addWidget(videoWidget);
+
     playlistWidget = ui->playlistWidget;
     playlistWidget->setContextMenuPolicy(Qt::CustomContextMenu);
-    playlistWidget->setIconSize(QSize(0, 0));
 
     connect(mediaPlayer, &QMediaPlayer::positionChanged, this, &Player::updatePosition);
     connect(mediaPlayer, &QMediaPlayer::durationChanged, this, &Player::updateDuration);
