@@ -16,15 +16,11 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <layout class="QHBoxLayout" name="videoLayout">
-      <item>
-       <widget class="QWidget" name="videoContainer" native="true">
-        <property name="styleSheet">
-         <string notr="true">background-color: black;</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
+     <widget class="QVideoWidget" name="videoWidget">
+      <property name="styleSheet">
+       <string notr="true">background-color: black;</string>
+      </property>
+     </widget>
     </item>
     <item>
      <widget class="QWidget" name="controlBar" native="true">
@@ -136,44 +132,6 @@
     </layout>
    </widget>
   </widget>
-  <action name="openAction">
-   <property name="text">
-    <string>打开文件</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+O</string>
-   </property>
-  </action>
-  <action name="exitAction">
-   <property name="text">
-    <string>退出</string>
-   </property>
-  </action>
-  <action name="fullscreenAction">
-   <property name="text">
-    <string>全屏</string>
-   </property>
-  </action>
-  <action name="screenshotAction">
-   <property name="text">
-    <string>截图</string>
-   </property>
-  </action>
-  <action name="menuFileAction">
-   <property name="text">
-    <string>文件</string>
-   </property>
-  </action>
-  <action name="menuPlayAction">
-   <property name="text">
-    <string>播放</string>
-   </property>
-  </action>
-  <action name="menuHelpAction">
-   <property name="text">
-    <string>帮助</string>
-   </property>
-  </action>
  </widget>
  <customwidgets>
   <customwidget>
