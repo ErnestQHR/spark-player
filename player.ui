@@ -16,11 +16,15 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <widget class="QVideoWidget" name="videoWidget">
-      <property name="styleSheet">
-       <string notr="true">background-color: black;</string>
-      </property>
-     </widget>
+     <layout class="QHBoxLayout" name="videoLayout">
+      <item>
+       <widget class="QWidget" name="videoContainer" native="true">
+        <property name="styleSheet">
+         <string notr="true">background-color: black;</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </item>
     <item>
      <widget class="QWidget" name="controlBar" native="true">
